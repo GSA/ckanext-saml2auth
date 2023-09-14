@@ -308,7 +308,6 @@ def _log_user_into_ckan(resp):
     if toolkit.check_ckan_version(min_version="2.10"):
         from ckan.common import login_user
         login_user(g.userobj)
-        log.info(u'User {0}<{1}> logged in successfully'.format(g.userobj.name, g.userobj.email))
         return
 
     if toolkit.check_ckan_version(min_version="2.9.6"):
@@ -316,8 +315,6 @@ def _log_user_into_ckan(resp):
     else:
         user_id = g.userobj.name
     set_repoze_user(user_id, resp)
-
-    log.info(u'User {0}<{1}> logged in successfully'.format(g.userobj.name, g.userobj.email))
 
 
 def saml2login():
