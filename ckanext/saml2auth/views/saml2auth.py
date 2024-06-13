@@ -266,7 +266,7 @@ def acs():
         if h.is_create_user_via_saml_enabled():
             g.user = process_new_user(email, saml_id, full_name, auth_response.ava)
         else:
-            error = "SAML login failed. The user does not exist or is not active."
+            error = "SAML login failed. The user {} does not exist or is not active.".format(email)
             log.error(error)
             extra_vars = {u'code': [400], u'content': error}
             return base.render(u'error_document_template.html', extra_vars), 400
