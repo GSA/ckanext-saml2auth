@@ -36,7 +36,7 @@ jobs:
       matrix:
         python-version: ['3.10']
         ckan-version: ["2.10", "2.11"]
-    name: Python ${{ matrix.python-version }} extension test
+    name: Python ${{ matrix.python-version }} / CKAN ${{ matrix.ckan-version }} extension test
 
     services:
       postgresql:
