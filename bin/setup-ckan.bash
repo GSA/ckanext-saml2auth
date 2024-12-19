@@ -8,7 +8,7 @@ sudo apt-get update -qq
 sudo apt-get install xmlsec1 libxmlsec1-dev
 
 echo "Installing CKAN and its Python dependencies..."
-git clone https://github.com/ckan/ckan
+git clone https://github.com/GSA/ckan
 cd ckan
 if [ $CKANVERSION == 'master' ]
 then
