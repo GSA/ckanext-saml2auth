@@ -18,6 +18,5 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 pytest_plugins = [
-    u'ckan.tests.pytest_ckan.ckan_setup',
     u'ckan.tests.pytest_ckan.fixtures',
 ]
