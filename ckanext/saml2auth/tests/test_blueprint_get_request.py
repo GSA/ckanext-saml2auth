@@ -118,6 +118,7 @@ class TestGetRequest:
             'SAMLResponse': encoded_response
         }
         response = app.post(url=url, params=data)
+        print(f">>response {response}")
         assert 200 == response.status_code
 
     def render_file(self, path, context, save_as=None):
@@ -309,6 +310,7 @@ class TestGetRequest:
             'SAMLResponse': encoded_response
         }
         response = app.post(url=url, params=data)
+        print(f">>response {response}")
         assert 200 == response.status_code
 
     @pytest.mark.ckan_config(u'ckanext.saml2auth.entity_id', u'urn:gov:gsa:SAML:2.0.profiles:sp:sso:test:entity')

@@ -89,6 +89,8 @@ class TestInterface(object):
 
         with plugins.use_plugin("test_saml2auth") as plugin:
             response = app.post(url=url, params=data, follow_redirects=False)
+            print(f">>plugin {plugin}")
+            print(f">>response {response}")
             assert 302 == response.status_code
 
             assert plugin.calls["after_saml2_login"] == 1, plugin.calls
@@ -106,6 +108,8 @@ class TestInterface(object):
 
         with plugins.use_plugin("test_saml2auth") as plugin:
             response = app.post(url=url, params=data, follow_redirects=False)
+            print(f">>plugin {plugin}")
+            print(f">>response {response}")
             assert 302 == response.status_code
 
             assert plugin.calls["before_saml2_user_create"] == 1, plugin.calls

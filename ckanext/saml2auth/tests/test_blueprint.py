@@ -125,6 +125,7 @@ class TestBlueprint(object):
         # Starting 2.10, CKAN's SessionMiddleware will append a
         # new Set-cookie header on every first response from the server.
         # This includes test requests.
+        print(f">>cookie_headers {cookie_headers}")
         assert len(cookie_headers) == 2
 
         first_cookie = cookie_headers[0]
@@ -132,6 +133,8 @@ class TestBlueprint(object):
         cookie = SimpleCookie()
         cookie.load(first_cookie)
         cookie_name = [name for name in cookie.keys()][0]
+        print(f">>cookie.keys() {cookie.keys()}")
+        print(f">>cookie[cookie_name] {cookie[cookie_name]}")
         assert cookie_name == 'ckan'
         assert cookie[cookie_name]['domain'] == 'test.ckan.net'
         cookie_date = date_parse(cookie[cookie_name]['expires'], ignoretz=True)
