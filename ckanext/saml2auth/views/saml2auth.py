@@ -248,6 +248,12 @@ def acs():
         else:
             full_name = u'{} {}'.format(email.split('@')[0], email.split('@')[1])
 
+    print(">>>>>>")
+    print(f">>email {email}")
+    print(f">>saml_id {saml_id}")
+    print(f">>full_name {full_name}")
+    print(f">> auth_response {auth_response}")
+    print(">>>>>>")
     g.user = process_user(email, saml_id, full_name, auth_response.ava)
 
     # Check if the authenticated user email is in given list of emails
