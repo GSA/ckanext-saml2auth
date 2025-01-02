@@ -62,8 +62,9 @@ def _prepare_unsigned_response():
     }
     t = Template(unsigned_response)
     final_response = t.render(**context)
-
+    print(f">>final_response {final_response}")
     encoded_response = _b4_encode_string(final_response)
+    print(f">>encoded_response {encoded_response}")
 
     return encoded_response
 
