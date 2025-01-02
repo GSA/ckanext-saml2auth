@@ -13,14 +13,11 @@ groups:
 #   another.option = another.value
   - annotation: saml2auth general settings
     options:
-      - key: ckanext.saml2auth.idp_metadata.local_path
-        default: false
-        type: bool
       - key: ckanext.saml2auth.enable_ckan_internal_login
-        default: false
-        type: bool
+      - key: ckanext.saml2auth.idp_metadata.local_path
       - key: ckanext.saml2auth.user_firstname
       - key: ckanext.saml2auth.user_lastname
       - key: ckanext.saml2auth.user_fullname
+      - key: ckanext.saml2auth.user_email
       - key: ckanext.saml2auth.acs_endpoint
 
