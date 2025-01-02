@@ -1,0 +1,26 @@
+# schema version of the config declaration. At the moment, the only valid value is `1`
+version: 1
+
+# an array of configuration blocks. Each block has an "annotation", that
+# describes the block, and the list of options. These groups help to separate
+# config options visually, but they have no extra meaning.
+groups:
+
+# short text that describes the group. It can be shown in the config file
+# as following:
+#   ## MyExt settings ##################
+#   some.option = some.value
+#   another.option = another.value
+  - annotation: saml2auth settings
+    options:
+      - key: saml2auth.idp_metadata.local_path
+        default: false
+        type: bool
+      - key: saml2auth.enable_ckan_internal_login
+        default: false
+        type: bool
+      - key: saml2auth.user_firstname
+      - key: saml2auth.user_lastname
+      - key: saml2auth.user_fullname
+      - key: saml2auth.acs_endpoint
+
