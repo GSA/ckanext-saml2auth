@@ -60,7 +60,7 @@ def get_config():
         asbool(ckan_config.get(u'ckanext.saml2auth.logout_requests_signed', False))
     logout_expected_binding = ckan_config.get(u'ckanext.saml2auth.logout_expected_binding',
                                               entity.BINDING_HTTP_POST)
-
+    print(f">>get_config :: {base}, {acs_endpoint}")
     config = {
         u'entityid': entity_id,
         u'description': u'CKAN saml2 Service Provider',
