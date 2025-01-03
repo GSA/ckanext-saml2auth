@@ -20,9 +20,11 @@ groups:
       - key: ckanext.saml2auth.user_fullname
       - key: ckanext.saml2auth.user_email
       - key: ckanext.saml2auth.acs_endpoint
-        default: '/acs'
+        default: "/acs"
       - key: ckanext.saml2auth.sp.name_id_policy_format
       - key: ckanext.saml2auth.idp_metadata.location
       - key: ckanext.saml2auth.idp_metadata.remote_url
       - key: ckanext.saml2auth.idp_metadata.remote_cert
+      - key: ckanext.saml2auth.sp.name_id_format
+        default: "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent"
 
