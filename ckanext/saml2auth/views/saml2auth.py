@@ -25,6 +25,7 @@ from saml2 import entity
 from saml2.authn_context import requested_authn_context
 from saml2.ident import code
 from saml2.saml import NameID
+from saml2.xmldsig import SIG_RSA_SHA256
 
 import ckan.plugins.toolkit as toolkit
 import ckan.model as model
@@ -343,9 +344,18 @@ def saml2login():
             comparison=comparison
         )
 
-        reqid, info = client.prepare_for_authenticate(requested_authn_context=final_context, relay_state=relay_state)
+        reqid, info = client.prepare_for_authenticate(
+            requested_authn_context=final_context,
+            relay_state=relay_state,
+            sign=True,
+            sigalg=SIG_RSA_SHA256
+        )
     else:
-        reqid, info = client.prepare_for_authenticate(relay_state=relay_state)
+        reqid, info = client.prepare_for_authenticate(
+            relay_state=relay_state,
+            sign=True,
+            sigalg=SIG_RSA_SHA256
+        )
 
     redirect_url = None
     for key, value in info[u'headers']:
