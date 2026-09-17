@@ -101,6 +101,7 @@ def _get_user_by_email(email):
 def _update_user(user_dict):
     context = {
         u'ignore_auth': True,
+        u'_saml2auth_user_update': True,
     }
 
     try:

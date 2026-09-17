@@ -39,11 +39,19 @@ log = logging.getLogger(__name__)
 
 
 class Saml2AuthPlugin(plugins.SingletonPlugin):
+    plugins.implements(plugins.IActions)
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IBlueprint)
     plugins.implements(plugins.IConfigurable)
     plugins.implements(plugins.ITemplateHelpers)
     plugins.implements(plugins.IAuthenticator, inherit=True)
+
+    # IActions
+
+    def get_actions(self):
+        return {
+            'user_update': user_update,
+        }
 
     # ITemplateHelpers
 
@@ -125,6 +133,16 @@ class Saml2AuthPlugin(plugins.SingletonPlugin):
             log.info(u'No user was logged in!')
 
         return response
+
+
+@toolkit.chained_action
+def user_update(original_action, context, data_dict):
+    if context.get('_saml2auth_user_update'):
+        return original_action(context, data_dict)
+
+    raise toolkit.NotAuthorized(
+        'User profiles are managed by SAML and cannot be updated in CKAN.'
+    )
 
 
 def _perform_slo():
