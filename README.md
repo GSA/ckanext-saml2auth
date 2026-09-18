@@ -87,8 +87,8 @@ Optional:
     # Indicates if CKAN should auto create a user for a new SAML login
     # If set False, a new user must be manually created in CKAN before they can log in using SAML
     # If set False, existing user must be in active state to able to log in.
-    # Default: True
-    ckanext.saml2auth.create_user_via_saml = True
+    # Default: False
+    ckanext.saml2auth.create_user_via_saml = False
 
     # List of email addresses from users that should be created as sysadmins (system administrators)
     # Note that this means that CKAN sysadmins will _only_ be managed based on this config option and will override existing user permissions in the CKAN database

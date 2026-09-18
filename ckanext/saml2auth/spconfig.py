@@ -54,6 +54,7 @@ def get_config():
     any_signed = asbool(ckan_config.get(u'ckanext.saml2auth.want_assertions_or_response_signed', False))
     key_file = ckan_config.get(u'ckanext.saml2auth.key_file_path', None)
     cert_file = ckan_config.get(u'ckanext.saml2auth.cert_file_path', None)
+    authn_requests_signed = key_file is not None and cert_file is not None
     attribute_map_dir = ckan_config.get(u'ckanext.saml2auth.attribute_map_dir', None)
     acs_endpoint = ckan_config.get('ckanext.saml2auth.acs_endpoint', '/acs')
     logout_requests_signed = \
@@ -73,7 +74,7 @@ def get_config():
                     u'assertion_consumer_service': [base + acs_endpoint]
                 },
                 u'allow_unsolicited': True,
-                u'authn_requests_signed': True,
+                u'authn_requests_signed': authn_requests_signed,
                 u'name_id_format': name_id_format,
                 u'want_response_signed': response_signed,
                 u'want_assertions_signed': assertion_signed,

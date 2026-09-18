@@ -97,7 +97,6 @@ class Saml2AuthPlugin(plugins.SingletonPlugin):
 
     # IConfigurer
 
-
     def update_config(self, config_):
         toolkit.add_template_directory(config_, 'templates')
         toolkit.add_public_directory(config_, 'public')
@@ -105,14 +104,12 @@ class Saml2AuthPlugin(plugins.SingletonPlugin):
 
     # IAuthenticator
 
-
     def identify(self):
         if current_user.is_authenticated and current_user.is_active and not session.get('last_active'):
             log.info('User {0}<{1}> logged in successfully{2}.'.format(
                 current_user.name, current_user.email,
                 ' via saml' if session.get('_saml_session_info') else ''
             ))
-
 
     def logout(self):
 
@@ -145,7 +142,7 @@ def user_update(original_action, context, data_dict):
     )
 
 
-def _perform_slo():
+def _perform_slo():  # noqa: C901
 
     response = None
 

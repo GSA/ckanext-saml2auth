@@ -52,7 +52,7 @@ def generate_password():
 
 def is_create_user_via_saml_enabled():
     return toolkit.asbool(
-        toolkit.config.get('ckanext.saml2auth.create_user_via_saml', True)
+        toolkit.config.get('ckanext.saml2auth.create_user_via_saml', False)
     )
 
 

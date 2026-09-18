@@ -70,6 +70,7 @@ def _prepare_unsigned_response():
 
 @pytest.mark.usefixtures(u'clean_db', u'clean_index')
 @pytest.mark.ckan_config(u'ckan.plugins', u'saml2auth')
+@pytest.mark.ckan_config(u'ckanext.saml2auth.create_user_via_saml', True)
 class TestGetRequest:
     """ test getting request from external source """
 
