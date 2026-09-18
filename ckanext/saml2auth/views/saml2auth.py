@@ -101,6 +101,7 @@ def _get_user_by_email(email):
 def _update_user(user_dict):
     context = {
         u'ignore_auth': True,
+        u'_saml2auth_user_update': True,
     }
 
     try:
@@ -210,7 +211,7 @@ def process_new_user(email, saml_id, full_name, saml_attributes):
     return user_dict[u'name']
 
 
-def acs():
+def acs():  # noqa: C901
     u'''The location where the SAML assertion is sent with a HTTP POST.
     This is often referred to as the SAML Assertion Consumer Service (ACS) URL.
     '''
@@ -329,6 +330,10 @@ def saml2login():
      configured identity provider for authentication
     '''
     client = h.saml_client(sp_config())
+    sign_request = bool(
+        config.get('ckanext.saml2auth.key_file_path')
+        and config.get('ckanext.saml2auth.cert_file_path')
+    )
     requested_authn_contexts = _get_requested_authn_contexts()
     relay_state = toolkit.request.args.get('came_from', '')
 
@@ -347,13 +352,13 @@ def saml2login():
         reqid, info = client.prepare_for_authenticate(
             requested_authn_context=final_context,
             relay_state=relay_state,
-            sign=True,
+            sign=sign_request,
             sigalg=SIG_RSA_SHA256
         )
     else:
         reqid, info = client.prepare_for_authenticate(
             relay_state=relay_state,
-            sign=True,
+            sign=sign_request,
             sigalg=SIG_RSA_SHA256
         )
 

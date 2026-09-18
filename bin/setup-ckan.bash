@@ -35,6 +35,8 @@ fi
 python setup.py develop
 pip install -r requirements.txt
 pip install -r dev-requirements.txt
+# CKAN 2.11.0's SAML certificate helpers are incompatible with newer releases.
+pip install pyOpenSSL==24.2.1 cryptography==43.0.3
 cd -
 
 echo "Creating the PostgreSQL user and database..."

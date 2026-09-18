@@ -39,11 +39,19 @@ log = logging.getLogger(__name__)
 
 
 class Saml2AuthPlugin(plugins.SingletonPlugin):
+    plugins.implements(plugins.IActions)
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IBlueprint)
     plugins.implements(plugins.IConfigurable)
     plugins.implements(plugins.ITemplateHelpers)
     plugins.implements(plugins.IAuthenticator, inherit=True)
+
+    # IActions
+
+    def get_actions(self):
+        return {
+            'user_update': user_update,
+        }
 
     # ITemplateHelpers
 
@@ -89,7 +97,6 @@ class Saml2AuthPlugin(plugins.SingletonPlugin):
 
     # IConfigurer
 
-
     def update_config(self, config_):
         toolkit.add_template_directory(config_, 'templates')
         toolkit.add_public_directory(config_, 'public')
@@ -97,14 +104,12 @@ class Saml2AuthPlugin(plugins.SingletonPlugin):
 
     # IAuthenticator
 
-
     def identify(self):
         if current_user.is_authenticated and current_user.is_active and not session.get('last_active'):
             log.info('User {0}<{1}> logged in successfully{2}.'.format(
                 current_user.name, current_user.email,
                 ' via saml' if session.get('_saml_session_info') else ''
             ))
-
 
     def logout(self):
 
@@ -127,7 +132,17 @@ class Saml2AuthPlugin(plugins.SingletonPlugin):
         return response
 
 
-def _perform_slo():
+@toolkit.chained_action
+def user_update(original_action, context, data_dict):
+    if context.get('_saml2auth_user_update'):
+        return original_action(context, data_dict)
+
+    raise toolkit.NotAuthorized(
+        'User profiles are managed by SAML and cannot be updated in CKAN.'
+    )
+
+
+def _perform_slo():  # noqa: C901
 
     response = None
 
